@@ -21,11 +21,11 @@ export class LoginPage implements OnInit {
     if (email.value && typeof email.value === 'string'
       && password.value && typeof password.value === 'string') {
       this.authService.signIn(email.value, password.value)
-        .then(() => {
+        .then((r) => {
           if (this.authService.isEmailVerified) {
             return this.router.navigate(['home']);
           } else {
-            window.alert('Email is not verified')
+            window.alert('Email is not verified');
             return false;
           }
         }).catch((error) => {
