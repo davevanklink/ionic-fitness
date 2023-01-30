@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fitness-ionic": {
+      "hosting": {
+        "app": [
+          "fitness-ionic"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fitness-ionic"
+  }
+}
