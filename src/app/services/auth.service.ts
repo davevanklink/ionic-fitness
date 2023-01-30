@@ -7,12 +7,14 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { User } from '../shared/auth';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   userData: any;
+
   constructor(
     public afStore: AngularFirestore,
     public ngFireAuth: AngularFireAuth,
@@ -38,8 +40,14 @@ export class AuthenticationService {
   }
   // Register user with email/password
 
-  registerUser(email: string, password: string) {
-    return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
+  registerUser(email: string, password: string, userName = '') {
+    return this.ngFireAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        userCredential.user?.updateProfile({
+          displayName: userName
+        });
+      });
   }
 
   // Email verification when new user register
@@ -67,19 +75,28 @@ export class AuthenticationService {
 
   // Returns true when user is looged in
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user') ?? '');
+    // const user = JSON.parse(localStorage.getItem('user') ?? '');
+    const user = this.storedUser;
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
   // Returns true when user's email is verified
   get isEmailVerified(): boolean {
-    const user = JSON.parse(localStorage.getItem('user') ?? '');
+    const user = this.storedUser;
     return user.emailVerified !== false ? true : false;
   }
 
-  get userUid() {
-    const user = JSON.parse(localStorage.getItem('user') ?? '');
-    return user.uid;
+  get userUid(): string | null {
+   return this.storedUser?.uid ?? null;
+  }
+
+  get storedUser() {
+    const item = localStorage.getItem('user');
+    if (item) {
+      const user = JSON.parse(item);
+      return user;
+    }
+    return null;
   }
 
   // Sign in with Gmail

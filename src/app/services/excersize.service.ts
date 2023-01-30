@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentData } from '@angular/fire/compat/firestore';
-import { collection, collectionData, CollectionReference, Firestore } from '@angular/fire/firestore';
+import { collection, collectionData, CollectionReference, doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { addDoc } from '@firebase/firestore';
 import * as firebase from 'firebase/compat';
 import { Observable } from 'rxjs';
@@ -12,6 +12,7 @@ interface excersize {
   weight: number;
   date: string;
   sets: number;
+  userId: string | null;
 }
 
 const EXCERSIZE_COLLECTION = 'excersizes';
@@ -22,7 +23,10 @@ const EXCERSIZE_COLLECTION = 'excersizes';
 export class ExcersizeService {
   private collection: CollectionReference<DocumentData>;
 
-  constructor(private readonly db: Firestore, private readonly authService: AuthenticationService) {
+  constructor(
+    private readonly db: Firestore,
+    private readonly authService: AuthenticationService
+  ) {
     this.collection = collection(this.db, EXCERSIZE_COLLECTION);
     console.log(authService.userUid);
   }
@@ -31,6 +35,14 @@ export class ExcersizeService {
     return collectionData(this.collection, {
       idField: undefined
     }) as Observable<excersize[]>
+  }
+
+  createUserDoc() {
+    if (this.authService.userUid) {
+      const document = doc(collection(this.db, this.authService.userUid));
+      return setDoc(document, { someting: 'something' })
+    }
+    return;
   }
 
   create(data: excersize) {

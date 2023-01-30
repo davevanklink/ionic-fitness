@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
+import { getAuth, User } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/auth.service';
 import { ExcersizeService } from '../services/excersize.service';
 
 @Component({
@@ -9,10 +11,21 @@ import { ExcersizeService } from '../services/excersize.service';
 })
 export class HomePage {
 
-  constructor(private readonly esService: ExcersizeService) {
+  public user?: User = undefined;
+
+  constructor(
+    private readonly esService: ExcersizeService,
+    private readonly authService: AuthenticationService,
+    public router: Router,
+  ) {
+    // Temp
     this.esService.getAll().subscribe(i => console.log(i));
+
+    this.user = this.authService.storedUser;
+    this.esService.createUserDoc();
   }
 
+  // Temp
   create() {
     this.esService.create({
       date: new Date().toISOString(),
@@ -20,8 +33,11 @@ export class HomePage {
       reps: 10,
       sets: 1,
       weight: 50,
-      // userId: logged in userId
+      userId: this.authService.userUid
     });
   }
-
+  
+  navigateToProfile() {
+    this.router.navigate(['/profile']);
+  }
 }
