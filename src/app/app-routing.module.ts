@@ -29,6 +29,15 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'categories',
+    loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+  },
+  {
+    path: 'excersize/:id',
+    loadChildren: () => import('./excersize/excersize.module').then( m => m.ExcersizePageModule)
+  },
+
 ];
 
 @NgModule({

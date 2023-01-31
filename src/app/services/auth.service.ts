@@ -83,13 +83,15 @@ export class AuthenticationService {
   // Returns true when user's email is verified
   get isEmailVerified(): boolean {
     const user = this.storedUser;
-    return user.emailVerified !== false ? true : false;
+    return user?.emailVerified !== false ? true : false;
   }
 
+  // Return logged in user's UID or null
   get userUid(): string | null {
    return this.storedUser?.uid ?? null;
   }
 
+  // Get logged in user from localstorage or null
   get storedUser() {
     const item = localStorage.getItem('user');
     if (item) {

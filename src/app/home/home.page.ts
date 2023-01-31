@@ -19,10 +19,10 @@ export class HomePage {
     public router: Router,
   ) {
     // Temp
-    this.esService.getAll().subscribe(i => console.log(i));
+    // this.esService.getAll().subscribe(i => console.log(i));
 
     this.user = this.authService.storedUser;
-    this.esService.createUserDoc();
+    // this.esService.createUserDoc();
   }
 
   // Temp

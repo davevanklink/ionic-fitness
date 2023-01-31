@@ -48,4 +48,19 @@ export class ExcersizeService {
   create(data: excersize) {
     addDoc(this.collection, data);
   }
+  
+  // Get all categories
+  getAllCategories() {
+    console.log('getAllCategories');
+  }
+
+  // Get all excersizs for a given categoryId
+  getAllExcersizes(catId: number) {
+    console.log('getAllExcersizes', catId);
+  }
+
+  // Get al data for given excersizeId for the current user
+  getExcersizeData(excersizeId: number, userId: number) {
+    console.log('getExcersizeData', excersizeId, userId);
+  }
 }
