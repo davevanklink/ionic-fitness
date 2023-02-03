@@ -1,9 +1,11 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>excersize ({{catId}})</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<ng-container *ngIf="selectedCategory | async as cat">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>excersize ({{ cat.title }})</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    
+  </ion-content>
+</ng-container>

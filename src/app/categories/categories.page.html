@@ -1,11 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>categories</ion-title>
+    <ion-title>Categories</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button routerLink="../excersize/1">
-    Test 1
+<ion-content *ngIf="categories | async as categories">
+  <ion-button *ngFor="let cat of categories" 
+    (click)="selectCategory(cat)">
+      {{ cat.title }}
   </ion-button>
 </ion-content>

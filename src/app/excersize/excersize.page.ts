@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Category } from '../services/category.service';
+import { RootState } from '../store';
+import * as selectors from '../store/selectors/selectors';
+import * as actions from '../store/actions/actions';
 
 @Component({
   selector: 'app-excersize',
@@ -7,12 +13,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./excersize.page.scss'],
 })
 export class ExcersizePage implements OnInit {
-  public catId: unknown;
+  selectedCategory: Observable<Category | undefined> | undefined;
 
-  constructor(private readonly route: ActivatedRoute) { }
+  constructor(private readonly store: Store<RootState>) { }
 
   ngOnInit() {
-    this.catId = this.route.snapshot.paramMap.get('id');
+    this.selectedCategory = this.store.pipe(select(selectors.getSelectedCategory))
+    // Load all excersizes for selected category
+  }
+
+  onSelectExcersize(excersize: any) {
+    console.log('onSelectExcersize', excersize);
   }
 
 }

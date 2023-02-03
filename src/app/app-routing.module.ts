@@ -34,7 +34,7 @@ const routes: Routes = [
     loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
   },
   {
-    path: 'excersize/:id',
+    path: 'excersize',
     loadChildren: () => import('./excersize/excersize.module').then( m => m.ExcersizePageModule)
   },
 
