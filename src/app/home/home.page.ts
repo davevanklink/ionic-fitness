@@ -5,7 +5,7 @@ import { AppState } from '@capacitor/app';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/auth.service';
-import { ExcersizeService } from '../services/excersize.service';
+import { DataService } from '../services/data.service';
 import { RootState } from '../store';
 import * as actions from '../store/actions/actions';
 import * as selectors from '../store/selectors/selectors';
@@ -20,7 +20,7 @@ export class HomePage {
   user?: User = undefined;
 
   constructor(
-    private readonly esService: ExcersizeService,
+    private readonly esService: DataService,
     private readonly authService: AuthenticationService,
     public router: Router,
     private store: Store<RootState>

@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Category } from 'src/app/services/category.service';
+import { Excersize } from 'src/app/services/excersize.service';
 
 export const testAction = createAction('[Test] test actions', props<{ data: boolean }>());
 
@@ -12,9 +13,9 @@ export const resetSelectedCategory = createAction('[Category] Reset Category');
 
 // Excersizes
 export const loadExcersizes = createAction('[Excersize] Load Excersizes');
-export const loadExcersizesSuccess = createAction('[Excersize] Load Excersizes Success', props<{ excersizes: any[]}>());
+export const loadExcersizesSuccess = createAction('[Excersize] Load Excersizes Success', props<{ excersizes: Excersize[]}>());
 export const loadExcersizesFailed = createAction('[Excersize] Load Excersizes Failed');
-export const selectExcersize = createAction('[Excersize] Select Excersize', props<{ excersize: any }>());
+export const selectExcersize = createAction('[Excersize] Select Excersize', props<{ excersize: Excersize }>());
 export const resetSelectedExcersize = createAction('[Excersize] Reset Excersize');
 
 //

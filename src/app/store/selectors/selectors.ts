@@ -13,7 +13,6 @@ export const getCategories = createSelector(selectFeature, (state) => state.cate
 export const getSelectedCategory = createSelector(selectFeature, (state) => state.selectedCategory);
 
 /** Excersizes */
-// export const isExcersizesLoading = createSelector(selectFeature, (state) => state.categoriesLoading);
-// export const isExcersizesError = createSelector(selectFeature, (state) => state.categoriesError);
-// export const getExcersizes = createSelector(selectFeature, (state) => state.categories);
-// export const getSelectedExcersize = createSelector(selectFeature, (state) => state.selectedCategory);
+export const isExcersizeLoading = createSelector(selectFeature, (state) => state.excersizeLoading);
+export const isExcersizeError = createSelector(selectFeature, (state) => state.excersizeError);
+export const getSelectedExcersize = createSelector(selectFeature, (state) => state.selectedExcersize);

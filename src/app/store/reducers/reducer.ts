@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Category } from 'src/app/services/category.service';
+import { Excersize } from 'src/app/services/excersize.service';
 import * as actions from '../actions/actions';
 
 export const reducerKey = 'reducer';
@@ -12,6 +13,9 @@ export interface AppState {
   categoriesError: boolean;
   selectedCategory?: Category;
   /** Excersizes */
+  excersizeLoading: boolean;
+  excersizeError: boolean;
+  selectedExcersize?: Excersize;
 }
 
 export const initialState: AppState = {
@@ -20,8 +24,15 @@ export const initialState: AppState = {
   categoriesLoading: false,
   categories: [],
   categoriesError: false,
-  selectedCategory: undefined
+  selectedCategory: undefined,
   /** Excersizes */
+  excersizeLoading: false,
+  excersizeError: false,
+  selectedExcersize: {
+    id: 1,
+    categoryId: 1,
+    title: 'Test'
+  }
 };
 
 export const reducer = createReducer(

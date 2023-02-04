@@ -1,11 +1,15 @@
-<ng-container *ngIf="selectedCategory | async as cat">
+<ng-container *ngIf="selectedExcersize | async as exc">
   <ion-header>
     <ion-toolbar>
-      <ion-title>excersize ({{ cat.title }})</ion-title>
+      <ion-title>excersize {{ exc.title }})</ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content>
-    
+    <div class="content">
+      <div>ExcersizeID: {{ exc.id }} </div>
+      <div>CategoryId: {{ exc.categoryId }} </div>
+      <div>Title: {{ exc.title }} </div>
+    </div>
   </ion-content>
 </ng-container>

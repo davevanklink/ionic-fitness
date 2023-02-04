@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Category } from '../services/category.service';
+import { Observable, take } from 'rxjs';
+import { Category, CategoryService } from '../services/category.service';
 import { RootState } from '../store';
 import * as selectors from '../store/selectors/selectors';
 import * as actions from '../store/actions/actions';
+import { Excersize } from '../services/excersize.service';
 
 @Component({
   selector: 'app-excersize',
@@ -13,13 +13,23 @@ import * as actions from '../store/actions/actions';
   styleUrls: ['./excersize.page.scss'],
 })
 export class ExcersizePage implements OnInit {
-  selectedCategory: Observable<Category | undefined> | undefined;
+  selectedExcersize: Observable<Excersize | undefined> | undefined;
 
-  constructor(private readonly store: Store<RootState>) { }
+  constructor(
+    private readonly store: Store<RootState>,
+    private readonly catService: CategoryService
+  ) { }
 
   ngOnInit() {
-    this.selectedCategory = this.store.pipe(select(selectors.getSelectedCategory))
+    this.selectedExcersize = this.store.pipe(select(selectors.getSelectedExcersize))
     // Load all excersizes for selected category
+    this.store.dispatch(actions.loadExcersizes());
+
+    this.selectedExcersize.pipe(take(1)).subscribe(x => {
+      if (x) {
+        this.catService.getCategoryById(x.categoryId);
+      }
+    })
   }
 
   onSelectExcersize(excersize: any) {
